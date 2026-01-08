@@ -39,23 +39,38 @@ builder.Services.AddSingleton(sp =>
     return new Client(url, key, options);
 });
 
-var jwtSecret = configuration["Supabase:JwtSecret"];
-// Authentication & JWT (validate Supabase JWTs)
+var jwtSecret = configuration["Supabase:JwtSecret"]
+    ?? throw new InvalidOperationException("Supabase:JwtSecret missing in configuration");
+
+var key = Encoding.UTF8.GetBytes(jwtSecret);
+
 builder.Services
-    .AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-.AddJwtBearer(options =>
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
             ValidateIssuer = false,
             ValidateAudience = false,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSecret!)
-            )
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                // If Authorization header is missing, try cookie
+                if (string.IsNullOrEmpty(context.Token) &&
+                    context.Request.Cookies.TryGetValue("sat_jwt", out var cookieToken))
+                {
+                    context.Token = cookieToken;
+                }
+
+                return Task.CompletedTask;
+            }
         };
     });
 
