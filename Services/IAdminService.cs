@@ -1,7 +1,5 @@
-// Services/IAdminService.cs
+// SAT.API/Services/IAdminService.cs
 using SAT.API.Dtos;
-
-namespace SAT.API.Services;
 
 public interface IAdminService
 {
@@ -9,4 +7,6 @@ public interface IAdminService
     Task<bool> SetResultPublishedAsync(Guid resultId, bool publish);
     Task<List<ActiveStudentResponse>> GetActiveStudentsAsync(Guid testId);
     Task<List<AntiCheatLogResponse>> GetAntiCheatLogsAsync(Guid testId);
+
+    Task<CreateStudentResponse> CreateStudentWithCredentialsAsync(string name, string phone);
 }

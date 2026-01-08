@@ -18,9 +18,23 @@ public class AppDbContext : DbContext
     public DbSet<AccessCode> AccessCodes => Set<AccessCode>();
     public DbSet<AntiCheatLog> AntiCheatLogs => Set<AntiCheatLog>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+// AppDbContext.cs
+public DbSet<LocalCredentials> LocalCredentials { get; set; } = null!;
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<LocalCredentials>(entity =>
     {
-        base.OnModelCreating(modelBuilder);
+        entity.HasKey(e => e.Id);
+        entity.HasIndex(e => e.Username).IsUnique();
+        entity.Property(e => e.Username).IsRequired().HasMaxLength(100);
+        entity.HasOne(e => e.User)
+              .WithMany()
+              .HasForeignKey(e => e.UserId)
+              .OnDelete(DeleteBehavior.Cascade);
+    });
 
         modelBuilder.Entity<User>(entity =>
         {
