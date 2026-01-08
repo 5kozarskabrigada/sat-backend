@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("5e452fe7-5134-4544-9d70-030784e5b789")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("SAT.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc08e862ba099ac9a46cf6d9d7841aa8cc9cef6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SAT.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SAT.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

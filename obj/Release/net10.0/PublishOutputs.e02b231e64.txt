@@ -47,6 +47,9 @@ C:\Users\user\Desktop\SAT\SAT.API\out\BuildHost-netcore\zh-Hans\System.CommandLi
 C:\Users\user\Desktop\SAT\SAT.API\out\BuildHost-netcore\zh-Hant\System.CommandLine.resources.dll
 C:\Users\user\Desktop\SAT\SAT.API\out\out\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
 C:\Users\user\Desktop\SAT\SAT.API\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll.config
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll.config
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\web.config
 C:\Users\user\Desktop\SAT\SAT.API\out\out\web.config
 C:\Users\user\Desktop\SAT\SAT.API\out\appsettings.Development.json
 C:\Users\user\Desktop\SAT\SAT.API\out\appsettings.json
@@ -54,6 +57,13 @@ C:\Users\user\Desktop\SAT\SAT.API\out\out\appsettings.Development.json
 C:\Users\user\Desktop\SAT\SAT.API\out\out\appsettings.json
 C:\Users\user\Desktop\SAT\SAT.API\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.deps.json
 C:\Users\user\Desktop\SAT\SAT.API\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.runtimeconfig.json
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\appsettings.Development.json
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\appsettings.json
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.deps.json
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.runtimeconfig.json
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\SAT.API.deps.json
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\SAT.API.runtimeconfig.json
+C:\Users\user\Desktop\SAT\SAT.API\out\out\out\SAT.API.staticwebassets.endpoints.json
 C:\Users\user\Desktop\SAT\SAT.API\out\out\SAT.API.deps.json
 C:\Users\user\Desktop\SAT\SAT.API\out\out\SAT.API.runtimeconfig.json
 C:\Users\user\Desktop\SAT\SAT.API\out\out\SAT.API.staticwebassets.endpoints.json

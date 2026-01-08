@@ -292,3 +292,14 @@ C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\BuildHost-netcore\Micr
 C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\SAT.API.deps.json
 C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\SAT.API.runtimeconfig.json
 C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\SAT.API.staticwebassets.endpoints.json
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll.config
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\web.config
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\appsettings.Development.json
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\appsettings.json
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.deps.json
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.runtimeconfig.json
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\SAT.API.deps.json
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\SAT.API.runtimeconfig.json
+C:\Users\user\Desktop\SAT\SAT.API\bin\Release\net10.0\out\out\SAT.API.staticwebassets.endpoints.json
+C:\Users\user\Desktop\SAT\SAT.API\obj\Release\net10.0\SAT.API.sourcelink.json
