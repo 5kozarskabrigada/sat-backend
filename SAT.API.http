@@ -1,0 +1,6 @@
+@SAT.API_HostAddress = http://localhost:5017
+
+GET {{SAT.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
