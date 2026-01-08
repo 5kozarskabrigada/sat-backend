@@ -1,31 +1,38 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SAT.API.Data;
 using SAT.API.Hubs;
 using SAT.API.Middleware;
 using SAT.API.Services;
 using Supabase;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-
 
 var builder = WebApplication.CreateBuilder(args);
-
 var configuration = builder.Configuration;
 
-// DbContext
-// DbContext
-builder.Services.AddDbContext<AppDbContext>(options =>
+const string CorsPolicyName = "FrontendPolicy";
+
+builder.Services.AddCors(options =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseNpgsql(connectionString, npgsqlOptions =>
+    options.AddPolicy(CorsPolicyName, policy =>
     {
-        // Use default public schema for the EF history table
-        npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "public");
+        policy.WithOrigins("https://sat-frontend-two.vercel.app")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "public");
+    });
+});
 
 // Supabase client
 builder.Services.AddSingleton(sp =>
@@ -40,7 +47,7 @@ builder.Services.AddSingleton(sp =>
 });
 
 var jwtSecret = configuration["Supabase:JwtSecret"]
-    ?? throw new InvalidOperationException("Supabase:JwtSecret missing in configuration");
+    ?? throw new InvalidOperationException("Supabase:JwtSecret missing");
 
 var key = Encoding.UTF8.GetBytes(jwtSecret);
 
@@ -62,7 +69,6 @@ builder.Services
         {
             OnMessageReceived = context =>
             {
-                // If Authorization header is missing, try cookie
                 if (string.IsNullOrEmpty(context.Token) &&
                     context.Request.Cookies.TryGetValue("sat_jwt", out var cookieToken))
                 {
@@ -73,6 +79,7 @@ builder.Services
             }
         };
     });
+
 
 builder.Services.AddAuthorization();
 
@@ -139,6 +146,8 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "swagger";
 });
 
+// CORS must be before auth
+app.UseCors(CorsPolicyName);
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
@@ -148,9 +157,6 @@ app.UseMiddleware<SupabaseJwtMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// SignalR hub
 app.MapHub<ExamHub>("/hubs/examhub");
 
 app.Run();
-
