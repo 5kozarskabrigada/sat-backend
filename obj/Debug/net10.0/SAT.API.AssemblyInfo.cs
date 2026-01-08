@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SAT.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc08e862ba099ac9a46cf6d9d7841aa8cc9cef6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ee7500e8be6b095c1a403cc8dffb27c675e4fd7")]
 [assembly: System.Reflection.AssemblyProductAttribute("SAT.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SAT.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
