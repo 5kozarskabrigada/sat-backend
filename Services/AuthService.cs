@@ -27,54 +27,54 @@ public class AuthService : IAuthService
     }
 
 
-    public async Task<(User user, string token)> RegisterStudentAsync(string name, string phone, string? email)
-    {
-        var existingUser = await _db.Users
-            .FirstOrDefaultAsync(u => u.Phone == phone || (email != null && u.Email == email));
+//     public async Task<(User user, string token)> RegisterStudentAsync(string name, string phone, string? email)
+//     {
+//         var existingUser = await _db.Users
+//             .FirstOrDefaultAsync(u => u.Phone == phone || (email != null && u.Email == email));
 
 
-        if (existingUser != null)
-        {
-            _logger.LogInformation("User already exists, logging in: {Phone}", phone);
-            var loginResult = await LoginInternalAsync(email ?? phone, GeneratePasswordFromPhone(phone), false);
-            return (existingUser, loginResult.token);
-        }
+//         if (existingUser != null)
+//         {
+//             _logger.LogInformation("User already exists, logging in: {Phone}", phone);
+//             var loginResult = await LoginInternalAsync(email ?? phone, GeneratePasswordFromPhone(phone), false);
+//             return (existingUser, loginResult.token);
+//         }
 
 
-        var password = GeneratePasswordFromPhone(phone);
+//         var password = GeneratePasswordFromPhone(phone);
 
 
-    var signUp = await _supabase.Auth.SignUp(email ?? $"{phone}@temp.local", password);
+//     var signUp = await _supabase.Auth.SignUp(email ?? $"{phone}@temp.local", password);
 
 
-if (signUp.User == null || string.IsNullOrEmpty(signUp.User.Id))
-    throw new InvalidOperationException("Supabase signup failed, user is null");
+// if (signUp.User == null || string.IsNullOrEmpty(signUp.User.Id))
+//     throw new InvalidOperationException("Supabase signup failed, user is null");
 
 
-        var authId = Guid.Parse(signUp.User.Id);
+//         var authId = Guid.Parse(signUp.User.Id);
 
 
-        var user = new User
-        {
-            Id = Guid.NewGuid(),
-            AuthId = authId,
-            Name = name,
-            Phone = phone,
-            Email = email,
-            Role = UserRole.STUDENT,
-            CreatedAt = DateTime.UtcNow
-        };
+//         var user = new User
+//         {
+//             Id = Guid.NewGuid(),
+//             AuthId = authId,
+//             Name = name,
+//             Phone = phone,
+//             Email = email,
+//             Role = UserRole.STUDENT,
+//             CreatedAt = DateTime.UtcNow
+//         };
 
 
-        _db.Users.Add(user);
-        await _db.SaveChangesAsync();
+//         _db.Users.Add(user);
+//         await _db.SaveChangesAsync();
 
 
-        var (loggedInUser, token) = await LoginInternalAsync(email ?? phone, password, true);
+//         var (loggedInUser, token) = await LoginInternalAsync(email ?? phone, password, true);
 
 
-        return (loggedInUser ?? user, token);
-    }
+//         return (loggedInUser ?? user, token);
+//     }
 
 
     public async Task<(User? user, string token)> LoginAsync(string identifier, string password)
