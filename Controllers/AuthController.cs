@@ -19,40 +19,41 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    [AllowAnonymous]
-    public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest request)
-    {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
+[AllowAnonymous]
+public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest request)
+{
+    if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        var (user, token) = await _authService.RegisterStudentAsync(
-            request.Name.Trim(),
-            request.Phone.Trim(),
-            request.Email?.Trim()
-        );
+    var (user, token) = await _authService.RegisterStudentAsync(
+        request.Name.Trim(),
+        request.Phone.Trim(),
+        request.Email?.Trim()
+    );
 
-        Response.Cookies.Append(
-            "sat_jwt",
-            token,
-            new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,              // true in HTTPS
-                SameSite = SameSiteMode.Lax,
-                Expires = DateTimeOffset.UtcNow.AddHours(8)
-            });
-
-        var response = new AuthResponse
+    Response.Cookies.Append(
+        "sat_jwt",
+        token,
+        new CookieOptions
         {
-            Id = user.Id,
-            Name = user.Name,
-            Phone = user.Phone,
-            Email = user.Email,
-            Role = user.Role.ToString(),
-            Token = token
-        };
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Lax,
+            Expires = DateTimeOffset.UtcNow.AddHours(8)
+        });
 
-        return Ok(response);
-    }
+    var response = new AuthResponse
+    {
+        Id = user.Id,
+        Name = user.Name,
+        Phone = user.Phone,
+        Email = user.Email,
+        Role = user.Role.ToString(),
+        Token = token
+    };
+
+    return Ok(response);
+}
+
 
     [HttpPost("login")]
     [AllowAnonymous]

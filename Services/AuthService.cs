@@ -171,6 +171,42 @@ public async Task<(User? user, string token)> LoginWithLocalCredentialsAsync(str
     return (user, token);
 }
 
+// SAT.API/Services/AuthService.cs
+public async Task<(User user, string token)> RegisterStudentAsync(string name, string phone, string? email)
+{
+    // 1. Check if user already exists by phone or email
+    var existingUser = await _db.Users
+        .FirstOrDefaultAsync(u => u.Phone == phone || (email != null && u.Email == email));
+
+    if (existingUser != null)
+    {
+        // Existing student: just issue a new JWT
+        _logger.LogInformation("User already exists, issuing JWT: {Phone}", phone);
+        var existingToken = JwtTokenGenerator.GenerateToken(existingUser, _jwtSecret);
+        return (existingUser, existingToken);
+    }
+
+    // 2. Create new student user in your DB
+    var user = new User
+    {
+        Id = Guid.NewGuid(),
+        AuthId = null,              // no Supabase auth id
+        Name = name.Trim(),
+        Phone = phone.Trim(),
+        Email = email?.Trim(),
+        Role = UserRole.STUDENT,
+        CreatedAt = DateTime.UtcNow
+    };
+
+    _db.Users.Add(user);
+    await _db.SaveChangesAsync();
+
+    // 3. Generate JWT for this new user
+    var token = JwtTokenGenerator.GenerateToken(user, _jwtSecret);
+
+    return (user, token);
+}
+
 
 private static string HashPassword(string password)
 {
