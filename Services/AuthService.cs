@@ -77,10 +77,17 @@ public class AuthService : IAuthService
 //     }
 
 
-    public async Task<(User? user, string token)> LoginAsync(string identifier, string password)
-    {
-        return await LoginInternalAsync(identifier, password, false);
-    }
+public async Task<(User? user, string token)> LoginAsync(string identifier, string password)
+{
+    // identifier = email, password = anything (not validated yet)
+    var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == identifier);
+    if (user == null) return (null, string.Empty);
+
+    var token = JwtTokenGenerator.GenerateToken(user, _jwtSecret);
+    return (user, token);
+}
+
+
 
 
     public async Task<User?> GetBySupabaseAuthIdAsync(Guid authId)
